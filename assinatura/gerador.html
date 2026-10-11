@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gerador de assinaturas — NoJurídico</title>
+<style>:root{--font-sans:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;--font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--surface-page:#F5F5F7;--surface-subtle:#FAFAFB;--surface-muted:#EDEDF1;--surface-inverse:#111111;--text-primary:#111111;--text-secondary:#52525C;--text-tertiary:#71717D;--text-link:#10069F;--text-link-hover:#0C0585;--border-default:#DFDFE5;--border-subtle:#EDEDF1;--border-strong:#C6C6CE;--border-focus:#10069F;--focus-ring:0 0 0 3px rgba(16,6,159,.22);--action-primary:#10069F;--action-primary-hover:#0C0585;--gray-50:#F5F5F7;--status-warning-bg:#FDF4E3;--status-warning-fg:#7F4A00;--shadow-xs:0 1px 2px rgba(17,17,17,.05);--shadow-sm:0 1px 3px rgba(17,17,17,.08),0 1px 2px rgba(17,17,17,.04);--shadow-lg:0 12px 32px rgba(17,17,17,.12),0 2px 6px rgba(17,17,17,.06)}*{box-sizing:border-box}</style>
+<style>body{margin:0;background:var(--surface-page);color:var(--text-primary);font-family:var(--font-sans)}a{color:var(--text-link)}a:hover{color:var(--text-link-hover)}
+.top{height:64px;background:#fff;border-bottom:1px solid var(--border-default);display:flex;align-items:center;gap:16px;padding:0 32px}.top img{height:22px}.top span{font:500 13px/1 var(--font-sans);color:var(--text-tertiary);padding-left:16px;border-left:1px solid var(--border-default)}
+.wrap{display:grid;grid-template-columns:400px minmax(0,1fr);gap:24px;padding:32px;max-width:1440px;margin:0 auto;align-items:start}
+.card{background:#fff;border:1px solid var(--border-default);border-radius:12px;box-shadow:var(--shadow-xs)}
+form{padding:24px;display:flex;flex-direction:column;gap:14px}h1{margin:0;font:600 20px/1.3 var(--font-sans);letter-spacing:-.01em}.sub{margin:4px 0 6px;color:var(--text-secondary);font-size:13px}
+label{display:flex;flex-direction:column;gap:6px;font:500 13px/1.3 var(--font-sans)}label small{font-weight:400;color:var(--text-tertiary);font-size:12px;margin-left:6px}label>.lb{display:block}
+input,textarea{height:40px;border:1px solid var(--border-strong);border-radius:8px;padding:0 12px;font:400 14px/1 var(--font-sans);color:var(--text-primary);background:#fff;box-shadow:var(--shadow-xs);outline:0;width:100%;box-sizing:border-box}textarea{height:64px;padding:10px 12px;line-height:1.4;resize:vertical}
+input:focus,textarea:focus{border-color:var(--border-focus);box-shadow:var(--focus-ring)}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sec{font:600 11px/1 var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text-tertiary);padding-top:8px}
+.pv{display:flex;flex-direction:column;gap:16px;min-width:0}.pvh{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border-subtle);flex-wrap:wrap}
+.seg{display:inline-flex;padding:3px;gap:2px;background:var(--surface-muted);border-radius:8px}.seg button{height:30px;padding:0 12px;border:0;border-radius:6px;background:transparent;font:500 13px/1 var(--font-sans);color:var(--text-secondary);cursor:pointer}.seg button[aria-pressed="true"]{background:#fff;color:var(--text-primary);font-weight:600;box-shadow:var(--shadow-sm)}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}.stage>div{padding:8px;min-width:0;overflow-x:auto}.stage .l{background:#fff}.stage .k{background:#000;border-radius:0 0 12px 0}.stage .l{border-radius:0 0 0 12px}.stage span{display:block;font:500 11px/1 var(--font-mono);color:var(--text-tertiary);padding:8px 8px 0}
+iframe{width:100%;border:0;height:240px;display:block}
+.acts{display:flex;gap:8px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:8px;font:600 13px/1 var(--font-sans);cursor:pointer;border:1px solid var(--border-strong);background:#fff;color:var(--text-primary);box-shadow:var(--shadow-xs)}.btn:hover{background:var(--gray-50)}.btn.p{background:var(--action-primary);border-color:var(--action-primary);color:#fff;box-shadow:none}.btn.p:hover{background:var(--action-primary-hover)}
+.code{padding:16px 20px}.code pre{margin:0;max-height:220px;overflow:auto;background:var(--surface-subtle);border:1px solid var(--border-subtle);border-radius:8px;padding:12px;font:400 11px/1.5 var(--font-mono);color:var(--text-secondary);white-space:pre-wrap;word-break:break-all}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(12px);opacity:0;transition:all .2s;background:var(--surface-inverse);color:#fff;padding:12px 16px;border-radius:8px;font:500 14px/1 var(--font-sans);box-shadow:var(--shadow-lg);pointer-events:none}.toast.on{opacity:1;transform:translateX(-50%)}
+.warn{margin:0 20px 16px;padding:10px 12px;border-radius:8px;background:var(--status-warning-bg);color:var(--status-warning-fg);font-size:12px;line-height:1.5;display:none}.warn.on{display:block}
+@media(max-width:1100px){.wrap{grid-template-columns:1fr}.stage{grid-template-columns:1fr}.stage .l,.stage .k{border-radius:0}}</style></head><body>
+<div class="top"><img src="img/logo-claro.png" alt="nojurídico"><span>Gerador de assinaturas de e-mail</span></div>
+<div class="wrap">
+<form class="card" id="f" autocomplete="off">
+<div><h1>Dados da pessoa</h1><p class="sub">A prévia atualiza enquanto você digita.</p></div>
+<label>Nome completo<input name="nome" value="Gustavo Nojosa Pereira"></label>
+<label>Cargo<input name="cargo" value="Fundador | NoJurídico"></label>
+<div class="row"><label>Telefone<input name="telefone" value="+55 (00) 00000-0000"></label><label><span class="lb">Telefone 2<small>opcional</small></span><input name="telefone2" value=""></label></div>
+<label>E-mail<input name="email" type="email" value="gustavo@nojuridico.com.br"></label>
+<div class="sec">Links</div>
+<label>Site<input name="site" value="www.nojuridico.com.br"></label>
+<label><span class="lb">LinkedIn<small>vazio = sem ícone</small></span><input name="linkedin" value="https://www.linkedin.com/company/nojuridico"></label>
+<label><span class="lb">Instagram<small>vazio = sem ícone</small></span><input name="instagram" value="https://www.instagram.com/nojuridico"></label>
+<div class="sec">Rodapé</div>
+<label>Referência<input name="referencia" value="Tecnologia jurídica por Nojosa Advocacia"></label>
+<label><span class="lb">Aviso de confidencialidade<small>opcional</small></span><textarea name="aviso"></textarea></label>
+<div class="sec">Imagens</div>
+<label><span class="lb">Endereço da pasta de imagens<small>URL https onde a pasta img/ está publicada</small></span><input name="base" value="img/" placeholder="https://www.nojuridico.com.br/assinatura/img/"></label>
+</form>
+<div class="pv">
+<div class="card"><div class="pvh"><div class="seg" role="group" aria-label="Versão"><button type="button" data-m="claro" aria-pressed="true">Clara (automática)</button><button type="button" data-m="escuro" aria-pressed="false">Escura fixa</button></div>
+<div class="acts"><button class="btn p" type="button" id="cp">Copiar assinatura</button><button class="btn" type="button" id="ch">Copiar HTML</button><button class="btn" type="button" id="dl">Baixar .htm</button></div></div>
+<p class="warn" id="w">As imagens ainda apontam para <b>img/</b>. Funciona na prévia, mas no e-mail elas não aparecem: informe a URL https da pasta publicada.</p>
+<div class="stage"><div class="l"><span>Fundo branco</span><iframe id="pl" title="Prévia fundo branco"></iframe></div><div class="k"><span>Fundo preto</span><iframe id="pk" title="Prévia fundo preto"></iframe></div></div></div>
+<div class="card code"><div class="sec" style="padding:0 0 10px">Código HTML</div><pre id="code"></pre></div>
+</div></div>
+<div class="toast" id="t"></div>
+<script src="assinatura.js"></script>
+<script>
+const f=document.getElementById('f');let mode='claro';
+const data=()=>Object.fromEntries(new FormData(f).entries());
+const slug=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'assinatura';
+function fit(fr){try{const d=fr.contentDocument.documentElement;fr.style.height=d.scrollHeight+'px';fr.style.minWidth=d.scrollWidth+'px';}catch(e){}}
+function render(){const d=data();const html=NJAssinatura.page(d,mode);
+ // preview: claro auto on white; on black show what dark-mode clients render
+ const pl=document.getElementById('pl'),pk=document.getElementById('pk');
+ pl.srcdoc=NJAssinatura.page(d,mode);
+ pk.srcdoc=NJAssinatura.page(d,'escuro');
+ pl.onload=()=>fit(pl);pk.onload=()=>fit(pk);
+ document.getElementById('code').textContent=html;
+ document.getElementById('w').classList.toggle('on',!/^https:\/\//i.test(d.base.trim()));}
+f.addEventListener('input',render);
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{mode=b.dataset.m;document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));render();});
+const toast=m=>{const t=document.getElementById('t');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2200);};
+document.getElementById('cp').onclick=async()=>{const body=NJAssinatura.build(data(),mode),html=(mode==='claro'?NJAssinatura.css():'')+body;
+ try{await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([document.getElementById('pl').contentDocument.body.innerText],{type:'text/plain'})})]);toast('Assinatura copiada. Cole no Outlook.');}
+ catch(e){const fr=document.getElementById('pl'),doc=fr.contentDocument,r=doc.createRange();r.selectNodeContents(doc.body);const s=fr.contentWindow.getSelection();s.removeAllRanges();s.addRange(r);doc.execCommand('copy');s.removeAllRanges();toast('Assinatura copiada. Cole no Outlook.');}};
+document.getElementById('ch').onclick=async()=>{await navigator.clipboard.writeText(NJAssinatura.page(data(),mode));toast('Código HTML copiado.');};
+document.getElementById('dl').onclick=()=>{const d=data(),b=new Blob([NJAssinatura.page(d,mode)],{type:'text/html'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=slug(d.nome)+(mode==='escuro'?'-escuro':'')+'.htm';a.click();toast('Arquivo baixado.');};
+render();
+</script></body></html>
